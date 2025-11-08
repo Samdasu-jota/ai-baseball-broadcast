@@ -5,152 +5,11 @@ Generate sleep-friendly AI broadcasts of MLB games focusing on pitch-by-pitch ac
 """
 
 import os
-import sys
-import statsapi
-from datetime import datetime, timedelta
 from openai import OpenAI
 
-# === DATA FETCHING ===
-
-def get_recent_games(team_name=None, days_back=7):
-    """Get recent completed games"""
-    end_date = datetime.now().strftime('%m/%d/%Y')
-    start_date = (datetime.now() - timedelta(days=days_back)).strftime('%m/%d/%Y')
-    
-    if team_name:
-        teams = statsapi.get('teams', {'sportId': 1})['teams']
-        team_id = None
-        for team in teams:
-            if team_name.lower() in team['name'].lower():
-                team_id = team['id']
-                break
-        
-        if team_id:
-            schedule = statsapi.schedule(start_date=start_date, end_date=end_date, team=team_id)
-        else:
-            print(f"Team '{team_name}' not found")
-            return []
-    else:
-        schedule = statsapi.schedule(start_date=start_date, end_date=end_date)
-    
-    return [game for game in schedule if game['status'] == 'Final']
-
-def get_game_pitch_data(game_id):
-    """Get detailed pitch-by-pitch data for a specific game"""
-    try:
-        playbyplay = statsapi.get('game_playByPlay', {'gamePk': game_id})
-        pitch_data = []
-        
-        for play in playbyplay.get('allPlays', []):
-            inning = play.get('about', {}).get('inning', 0)
-            half_inning = play.get('about', {}).get('halfInning', '')
-            batter = play.get('matchup', {}).get('batter', {}).get('fullName', 'Unknown')
-            pitcher = play.get('matchup', {}).get('pitcher', {}).get('fullName', 'Unknown')
-            
-            for pitch_event in play.get('playEvents', []):
-                if pitch_event.get('isPitch'):
-                    pitch_details = pitch_event.get('pitchData', {})
-                    pitch_info = {
-                        'inning': inning,
-                        'half_inning': half_inning,
-                        'batter': batter,
-                        'pitcher': pitcher,
-                        'pitch_type': pitch_details.get('details', {}).get('type', {}).get('description', 'pitch'),
-                        'speed': pitch_details.get('startSpeed', 0),
-                        'result': pitch_event.get('details', {}).get('description', 'Unknown'),
-                        'balls': pitch_event.get('count', {}).get('balls', 0),
-                        'strikes': pitch_event.get('count', {}).get('strikes', 0)
-                    }
-                    pitch_data.append(pitch_info)
-        
-        return pitch_data
-        
-    except Exception as e:
-        print(f"Error fetching game data: {e}")
-        return []
-
-# === SCRIPT GENERATION ===
-
-def format_pitch_type(pitch_type):
-    """Clean up pitch type names"""
-    if not pitch_type or pitch_type == "Unknown":
-        return "pitch"
-    return pitch_type.lower()
-
-def generate_pitch_description(pitch):
-    """Convert pitch data to broadcast text"""
-    pitcher = pitch['pitcher'].split()[-1]
-    batter = pitch['batter'].split()[-1]
-    
-    speed = pitch['speed']
-    pitch_type = format_pitch_type(pitch['pitch_type'])
-    result = pitch['result'].lower()
-    
-    if speed > 0:
-        speed_text = f"{speed:.1f} mile per hour {pitch_type}"
-    else:
-        speed_text = pitch_type
-    
-    if "ball" in result:
-        outcome = "ball"
-    elif "strike" in result or "foul" in result:
-        outcome = "strike"
-    elif "hit" in result or "in play" in result:
-        outcome = "put in play"
-    else:
-        outcome = result
-    
-    return f"{pitcher} delivers a {speed_text} to {batter}, {outcome}."
-
-def generate_inning_intro(inning, half_inning, prev_inning=None, prev_half=None):
-    """Generate inning transitions"""
-    if prev_inning != inning or prev_half != half_inning:
-        if half_inning == "top":
-            return f"Top of the {inning}. "
-        else:
-            return f"Bottom of the {inning}. "
-    return ""
-
-def generate_broadcast_script(pitch_data, max_pitches=50):
-    """Convert pitch data into a natural broadcast script"""
-    if not pitch_data:
-        return "No game data available."
-    
-    script_lines = []
-    prev_inning = None
-    prev_half = None
-    
-    # Sample pitches for reasonable broadcast length
-    if len(pitch_data) > max_pitches:
-        selected_pitches = (
-            pitch_data[:15] +
-            pitch_data[len(pitch_data)//2:len(pitch_data)//2+10] +
-            pitch_data[-25:]
-        )
-    else:
-        selected_pitches = pitch_data
-    
-    for i, pitch in enumerate(selected_pitches):
-        inning_intro = generate_inning_intro(
-            pitch['inning'], 
-            pitch['half_inning'], 
-            prev_inning, 
-            prev_half
-        )
-        
-        if inning_intro:
-            script_lines.append(inning_intro)
-        
-        pitch_desc = generate_pitch_description(pitch)
-        script_lines.append(pitch_desc)
-        
-        if i % 5 == 4:
-            script_lines.append("")  # Breathing room
-        
-        prev_inning = pitch['inning']
-        prev_half = pitch['half_inning']
-    
-    return " ".join(script_lines)
+# Import functions from our modules instead of duplicating them!
+from fetch_game_data import get_recent_games, get_game_pitch_data, get_key_innings_from_scoring
+from generate_broadcast import generate_broadcast_script
 
 # === AUDIO GENERATION ===
 
@@ -213,15 +72,24 @@ def main():
     
     # Get pitch data
     pitch_data = get_game_pitch_data(game_id)
-    
+
     if not pitch_data:
         print("No pitch data found for this game")
         return
-    
-    print(f"Processing {len(pitch_data)} pitches...")
-    
-    # Generate script
-    script = generate_broadcast_script(pitch_data, max_pitches=40)
+
+    print(f"Processing {len(pitch_data)} total pitches...")
+
+    # Get key innings (innings with scoring)
+    print("Identifying key innings with scoring plays...")
+    key_innings = get_key_innings_from_scoring(game_id)
+
+    if key_innings:
+        print(f"Found scoring in innings: {key_innings}")
+    else:
+        print("No scoring plays found, using all pitches")
+
+    # Generate script using key innings
+    script = generate_broadcast_script(pitch_data, max_pitches=40, key_innings=key_innings, away_team=away_team, home_team=home_team)
     
     # Save script
     script_file = "broadcast_script.txt"

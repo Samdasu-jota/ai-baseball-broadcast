@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Data fetching module for MLB games
+Provides functions to retrieve game schedules and pitch-by-pitch data
+"""
 
 import statsapi
 import json
@@ -28,38 +32,94 @@ def get_recent_games(team_name=None, days_back=3):
     
     return [game for game in schedule if game['status'] == 'Final']
 
+def get_key_innings_from_scoring(game_id):
+    """Get innings where runs were scored using StatsAPI scoring plays"""
+    try:
+        # Get scoring plays data
+        scoring_text = statsapi.game_scoring_plays(game_id)
+
+        # Parse the scoring plays to extract innings
+        key_innings = set()
+
+        # The scoring_text is formatted text, parse it to find innings
+        # Format is like "Bottom 3 - ..." or "Top 4 - ..."
+        lines = scoring_text.split('\n')
+        for line in lines:
+            line = line.strip()
+            if line:
+                # Look for patterns like "Bottom 3 -" or "Top 4 -"
+                if line.startswith('Bottom ') or line.startswith('Top '):
+                    try:
+                        # Extract inning number
+                        parts = line.split()
+                        if len(parts) >= 2:
+                            inning_num = int(parts[1])
+                            key_innings.add(inning_num)
+                    except (ValueError, IndexError):
+                        continue
+
+        return sorted(list(key_innings))
+
+    except Exception as e:
+        print(f"Error fetching scoring plays: {e}")
+        return []
+
 def get_game_pitch_data(game_id):
     """Get detailed pitch-by-pitch data for a specific game"""
     try:
         # Get play-by-play data
         playbyplay = statsapi.get('game_playByPlay', {'gamePk': game_id})
-        
+
         pitch_data = []
-        
+
         for play in playbyplay.get('allPlays', []):
             inning = play.get('about', {}).get('inning', 0)
             half_inning = play.get('about', {}).get('halfInning', '')
             batter = play.get('matchup', {}).get('batter', {}).get('fullName', 'Unknown')
             pitcher = play.get('matchup', {}).get('pitcher', {}).get('fullName', 'Unknown')
-            
-            for pitch_event in play.get('playEvents', []):
+
+            # Get the at-bat result (what happened after all pitches)
+            play_result = play.get('result', {})
+            at_bat_event = play_result.get('event', '')  # "Strikeout", "Home Run", "Single", etc.
+            at_bat_description = play_result.get('description', '')
+            rbi = play_result.get('rbi', 0)
+            away_score = play_result.get('awayScore', 0)
+            home_score = play_result.get('homeScore', 0)
+
+            pitch_events = play.get('playEvents', [])
+            num_pitches = len([e for e in pitch_events if e.get('isPitch')])
+
+            for pitch_index, pitch_event in enumerate(pitch_events):
                 if pitch_event.get('isPitch'):
                     pitch_details = pitch_event.get('pitchData', {})
+                    coordinates = pitch_details.get('coordinates', {})
+
+                    # Check if this is the last pitch of the at-bat
+                    is_last_pitch = (pitch_index == len(pitch_events) - 1)
+
                     pitch_info = {
                         'inning': inning,
                         'half_inning': half_inning,
                         'batter': batter,
                         'pitcher': pitcher,
-                        'pitch_type': pitch_details.get('details', {}).get('type', {}).get('description', 'Unknown'),
+                        'pitch_type': pitch_event.get('details', {}).get('type', {}).get('description', 'Unknown'),
                         'speed': pitch_details.get('startSpeed', 0),
                         'result': pitch_event.get('details', {}).get('description', 'Unknown'),
                         'balls': pitch_event.get('count', {}).get('balls', 0),
-                        'strikes': pitch_event.get('count', {}).get('strikes', 0)
+                        'strikes': pitch_event.get('count', {}).get('strikes', 0),
+                        'zone': pitch_details.get('zone', None),
+                        'pX': coordinates.get('pX', None),  # Horizontal location
+                        'pZ': coordinates.get('pZ', None),  # Vertical location
+                        'at_bat_event': at_bat_event if is_last_pitch else None,  # Add outcome on last pitch
+                        'at_bat_description': at_bat_description if is_last_pitch else None,
+                        'rbi': rbi if is_last_pitch else 0,
+                        'away_score': away_score,
+                        'home_score': home_score
                     }
                     pitch_data.append(pitch_info)
-        
+
         return pitch_data
-        
+
     except Exception as e:
         print(f"Error fetching game data: {e}")
         return []
