@@ -1,0 +1,623 @@
+================================================================================
+TEXT-TO-SPEECH API COMPARISON FOR BASEBALL BROADCAST GENERATOR
+================================================================================
+Last Updated: 2025
+Project: AI Baseball Broadcast Generator (Sleep-Friendly MLB Game Summaries)
+Script Size: ~15,000 characters per full game broadcast
+Duration: ~17 minutes audio
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+RECOMMENDATION: Start with OpenAI TTS
+
+Why?
+✅ Best value for testing ($0.23 per broadcast vs $21-35 for ElevenLabs)
+✅ Good quality for bedtime/casual listening (8/10)
+✅ Already integrated in your codebase
+✅ No subscription required - pay only for what you use
+✅ "Onyx" voice is perfect for calm, sleep-friendly narration
+
+Upgrade to ElevenLabs only if:
+- You need maximum realism and emotional expression (10/10 quality)
+- You plan to monetize and quality is critical
+- Budget is not a constraint (100x more expensive)
+
+
+================================================================================
+DETAILED API COMPARISON
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 1. OPENAI TTS                                                    ⭐ RECOMMENDED │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUALITY: 8/10
+- Very natural and professional sounding
+- Clear articulation of baseball terms and player names
+- Good pacing for narration
+- Less emotional range than ElevenLabs but still engaging
+
+VOICE OPTIONS:
+- 6 voices available: alloy, echo, fable, onyx, nova, shimmer
+- "Onyx" recommended for sports (deep, calm, masculine)
+- "Nova" alternative (warm, engaging, feminine)
+
+COST FOR YOUR PROJECT:
+- Pricing: $0.015 per 1,000 characters
+- 2-inning test (~4,000 chars): $0.06
+- Full game broadcast (~15,000 chars): $0.23
+- 10 broadcasts: $2.30
+- 100 broadcasts: $23.00
+
+FEATURES:
+✅ HD quality available (tts-1-hd model)
+✅ Fast generation (~30 seconds for 15k chars)
+✅ Simple REST API
+✅ No subscription needed - pay per use
+✅ Streaming support for real-time generation
+✅ Already integrated in your code!
+
+LIMITATIONS:
+⚠️ Cannot customize voice characteristics (pitch, speed, emotion)
+⚠️ No voice cloning
+⚠️ Limited to 6 pre-made voices
+⚠️ Less expressive than ElevenLabs
+
+BEST FOR:
+- Testing and prototyping
+- Budget-conscious projects
+- Sleep/bedtime content (calm delivery)
+- High volume production (cost-effective)
+
+SETUP COMPLEXITY: Easy (1/5)
+- Single API key
+- Simple API calls
+- Good documentation
+- Python SDK available
+
+API ENDPOINT:
+POST https://api.openai.com/v1/audio/speech
+
+SAMPLE CODE (already in your project):
+```python
+from openai import OpenAI
+client = OpenAI(api_key=api_key)
+response = client.audio.speech.create(
+    model="tts-1",
+    voice="onyx",
+    input=text
+)
+response.stream_to_file(output_file)
+```
+
+RESOURCES:
+- Docs: https://platform.openai.com/docs/guides/text-to-speech
+- Pricing: https://openai.com/pricing
+- Voice samples: https://platform.openai.com/docs/guides/text-to-speech/voice-options
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 2. ELEVENLABS                                                  🏆 BEST QUALITY │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUALITY: 10/10 ⭐
+- Industry-leading realism (4.14/5 Mean Opinion Score)
+- Exceptional emotional expression and excitement
+- Perfect for sports commentary energy
+- Captures nuances like enthusiasm, tension, excitement
+
+VOICE OPTIONS:
+- 100+ pre-made voices
+- Voice cloning capability (create custom voices)
+- Adjust emotion, pace, accent per sentence
+- Professional voice actor quality
+
+COST FOR YOUR PROJECT:
+- Free tier: 10,000 chars/month (~0.6 broadcasts)
+- Starter: $5/month = 30,000 chars (~2 broadcasts)
+- Creator: $22/month = 100,000 chars (~6 broadcasts)
+- Pro: $99/month = 500,000 chars (~33 broadcasts)
+
+For 15,000 char broadcast:
+- Free tier: 0-1 broadcast/month FREE
+- After free tier: ~$21-35 per broadcast (based on subscription)
+
+FEATURES:
+✅ Ultra-realistic voice quality
+✅ Emotional control (adjust excitement, calm, etc.)
+✅ Voice cloning (sound like specific announcer)
+✅ Multi-lingual support (32 languages)
+✅ Flash model for low latency (~75ms)
+✅ Fine-tune accent, tone, style
+✅ Projects feature for organizing broadcasts
+
+LIMITATIONS:
+⚠️ Expensive for high volume
+⚠️ Subscription required (no pure pay-per-use)
+⚠️ Free tier very limited
+⚠️ Overkill for sleep/bedtime content
+
+BEST FOR:
+- Premium commercial products
+- Content requiring emotional expression
+- Voice cloning for branded announcers
+- Projects where quality > cost
+- Exciting live-game style commentary
+
+SETUP COMPLEXITY: Easy (2/5)
+- Requires account creation
+- API key generation
+- Choose subscription tier
+- Python SDK available
+
+API ENDPOINT:
+POST https://api.elevenlabs.io/v1/text-to-speech/{voice_id}
+
+SAMPLE CODE:
+```python
+from elevenlabs import generate, save
+audio = generate(
+    text=text,
+    voice="Adam",
+    model="eleven_monolingual_v1"
+)
+save(audio, output_file)
+```
+
+RESOURCES:
+- Website: https://elevenlabs.io
+- Docs: https://docs.elevenlabs.io
+- Pricing: https://elevenlabs.io/pricing
+- Voice library: https://elevenlabs.io/voice-library
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 3. GOOGLE CLOUD TEXT-TO-SPEECH                            🏢 ENTERPRISE GRADE │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+QUALITY: 8.5/10
+- Near-human quality (DeepMind technology)
+- Natural intonation and pacing
+- Good for professional applications
+- Extensive language support
+
+VOICE OPTIONS:
+- 380+ voices across 50+ languages
+- Standard, WaveNet, Neural2, Studio voices
+- Customizable speaking rate, pitch, volume
+- SSML support for fine control
+
+COST FOR YOUR PROJECT:
+- Standard voices: $4 per 1M chars
+- WaveNet voices: $16 per 1M chars
+- Neural2 voices: $16 per 1M chars
+- Studio voices: $16 per 1M chars
+
+For 15,000 char broadcast:
+- Standard: $0.06 per broadcast
+- Neural2/WaveNet: $0.24 per broadcast
+- Similar to OpenAI pricing
+
+FEATURES:
+✅ 99.9% uptime SLA
+✅ SSML support for precise control
+✅ Custom voice creation (Studio)
+✅ Audio profiles (headphone, phone, etc.)
+✅ Integration with GCP ecosystem
+✅ Regional data residency
+✅ Speed/pitch/volume control
+
+LIMITATIONS:
+⚠️ More complex setup (GCP account required)
+⚠️ Billing can be confusing
+⚠️ Less sports-specific tuning
+⚠️ SSML learning curve for advanced features
+
+BEST FOR:
+- Enterprise applications
+- Multi-language requirements
+- GCP ecosystem integration
+- High availability needs
+- Custom voice requirements
+
+SETUP COMPLEXITY: Medium (3/5)
+- Google Cloud account required
+- Enable Text-to-Speech API
+- Set up billing
+- Authentication setup
+- Python client library
+
+API ENDPOINT:
+POST https://texttospeech.googleapis.com/v1/text:synthesize
+
+SAMPLE CODE:
+```python
+from google.cloud import texttospeech
+client = texttospeech.TextToSpeechClient()
+synthesis_input = texttospeech.SynthesisInput(text=text)
+voice = texttospeech.VoiceSelectionParams(
+    language_code="en-US",
+    name="en-US-Neural2-D"
+)
+audio_config = texttospeech.AudioConfig(
+    audio_encoding=texttospeech.AudioEncoding.MP3
+)
+response = client.synthesize_speech(
+    input=synthesis_input,
+    voice=voice,
+    audio_config=audio_config
+)
+with open(output_file, "wb") as out:
+    out.write(response.audio_content)
+```
+
+RESOURCES:
+- Website: https://cloud.google.com/text-to-speech
+- Docs: https://cloud.google.com/text-to-speech/docs
+- Pricing: https://cloud.google.com/text-to-speech/pricing
+- Voice samples: https://cloud.google.com/text-to-speech/docs/voices
+
+
+================================================================================
+COST COMPARISON TABLE
+================================================================================
+
+                    │ 2-Inning Test │ Full Broadcast │  10 Games  │  100 Games  │
+                    │   (4k chars)  │   (15k chars)  │ (150k chr) │  (1.5M chr) │
+────────────────────┼───────────────┼────────────────┼────────────┼─────────────┤
+OpenAI TTS          │     $0.06     │     $0.23      │   $2.25    │   $22.50    │
+ElevenLabs (Free)   │     FREE      │     FREE       │    N/A     │     N/A     │
+ElevenLabs (Paid)   │   $5-22/mo    │   $21-35 ea    │ $210-350   │ $2100-3500  │
+Google Cloud (Std)  │     $0.02     │     $0.06      │   $0.60    │    $6.00    │
+Google Cloud (Neu2) │     $0.06     │     $0.24      │   $2.40    │   $24.00    │
+────────────────────┴───────────────┴────────────────┴────────────┴─────────────┘
+
+WINNER BY CATEGORY:
+💰 Cheapest: Google Standard ($0.06 per broadcast)
+💎 Best Quality: ElevenLabs (10/10)
+⚖️ Best Value: OpenAI TTS ($0.23 per broadcast, good quality)
+🏢 Best for Enterprise: Google Cloud (SLA, scale)
+
+
+================================================================================
+FEATURE COMPARISON TABLE
+================================================================================
+
+Feature                  │ OpenAI  │ ElevenLabs │ Google Cloud │
+─────────────────────────┼─────────┼────────────┼──────────────┤
+Voice Quality (1-10)     │   8     │     10     │     8.5      │
+Natural Sports Voice     │  Good   │  Excellent │    Good      │
+Emotional Expression     │ Limited │  Excellent │    Good      │
+Voice Customization      │   No    │    Yes     │   SSML       │
+Voice Cloning            │   No    │    Yes     │   Custom     │
+Number of Voices         │   6     │   100+     │    380+      │
+Setup Difficulty (1-5)   │   1     │     2      │      3       │
+Pay-per-use Available    │  Yes    │    No*     │     Yes      │
+Best for Sleep Content   │  Yes    │   Okay     │    Yes       │
+Best for Excitement      │ Okay    │    Yes     │   Okay       │
+API Simplicity           │ Simple  │   Simple   │   Medium     │
+Documentation Quality    │  Good   │    Good    │  Excellent   │
+Python SDK               │  Yes    │    Yes     │     Yes      │
+Streaming Support        │  Yes    │    Yes     │     No       │
+─────────────────────────┴─────────┴────────────┴──────────────┘
+
+*ElevenLabs requires subscription, but has free tier
+
+
+================================================================================
+TESTING RECOMMENDATION
+================================================================================
+
+PHASE 1: Test with OpenAI TTS (RECOMMENDED START)
+──────────────────────────────────────────────────
+Cost: $0.06 for 2-inning test
+Time: 5 minutes setup, 30 seconds generation
+Quality: Good enough for 95% of use cases
+
+Steps:
+1. Set OpenAI API key: export OPENAI_API_KEY='sk-...'
+2. Run: python3 test_tts_short.py
+3. Listen to test_broadcast_short.mp3
+4. Evaluate quality for your needs
+
+Decision Point:
+→ Happy with quality? ✅ Use OpenAI, save 100x on costs
+→ Need better quality? → Proceed to Phase 2
+
+
+PHASE 2: Compare with ElevenLabs (OPTIONAL)
+────────────────────────────────────────────
+Cost: FREE (using free tier)
+Time: 10 minutes setup, 1 minute generation
+Quality: Best available (10/10)
+
+Steps:
+1. Sign up at https://elevenlabs.io
+2. Get API key from dashboard
+3. Install: pip install elevenlabs
+4. Generate same 2-inning test
+5. Compare side-by-side with OpenAI
+
+Decision Point:
+→ Worth 100x cost increase? → Use ElevenLabs
+→ Not worth it? → Stick with OpenAI
+
+
+PHASE 3: Full Production (BASED ON PHASE 1 & 2)
+────────────────────────────────────────────────
+Choose based on:
+- Budget constraints
+- Target audience expectations
+- Monetization plans
+- Volume of broadcasts
+
+
+================================================================================
+WHEN TO UPGRADE FROM OPENAI TO ELEVENLABS
+================================================================================
+
+STICK WITH OPENAI IF:
+✅ Budget is limited
+✅ Content is for personal use or sleep/relaxation
+✅ Generating high volume of broadcasts
+✅ Good-enough quality is acceptable
+✅ Calm, professional delivery is desired
+
+UPGRADE TO ELEVENLABS IF:
+✅ Building a commercial/premium product
+✅ Need maximum realism and excitement
+✅ Want to clone specific announcer voices
+✅ Emotional expression is critical
+✅ Quality is more important than cost
+✅ Marketing requires "best-in-class" quality
+
+
+================================================================================
+VOICE RECOMMENDATIONS FOR BASEBALL BROADCASTS
+================================================================================
+
+OPENAI TTS:
+Primary: "onyx" - Deep, calm, masculine (perfect for bedtime broadcasts)
+Alternative: "nova" - Warm, engaging, good for afternoon listening
+
+ELEVENLABS:
+Sports Commentary: "Adam", "Antoni", "Josh" (energetic, clear)
+Calm Narration: "Arnold", "Sam" (smooth, professional)
+Custom: Clone your favorite sports announcer's voice
+
+GOOGLE CLOUD:
+Male: "en-US-Neural2-D" (deep), "en-US-Neural2-A" (clear)
+Female: "en-US-Neural2-F" (warm), "en-US-Neural2-C" (professional)
+
+
+================================================================================
+INTEGRATION EXAMPLES
+================================================================================
+
+CURRENT (OpenAI - Already Integrated):
+────────────────────────────────────────
+from openai import OpenAI
+client = OpenAI(api_key=api_key)
+response = client.audio.speech.create(
+    model="tts-1",
+    voice="onyx",
+    input=script
+)
+response.stream_to_file("broadcast.mp3")
+
+Cost: $0.23 per broadcast ✅
+Code: Already in your baseball_broadcast_ai.py ✅
+
+
+ALTERNATIVE 1 (ElevenLabs):
+───────────────────────────
+pip install elevenlabs
+
+from elevenlabs import generate, save
+audio = generate(
+    text=script,
+    voice="Adam",
+    model="eleven_monolingual_v1"
+)
+save(audio, "broadcast.mp3")
+
+Cost: $21-35 per broadcast 💰
+Setup: Requires account + subscription
+
+
+ALTERNATIVE 2 (Google Cloud):
+──────────────────────────────
+pip install google-cloud-texttospeech
+
+from google.cloud import texttospeech
+client = texttospeech.TextToSpeechClient()
+synthesis_input = texttospeech.SynthesisInput(text=script)
+voice = texttospeech.VoiceSelectionParams(
+    language_code="en-US",
+    name="en-US-Neural2-D"
+)
+audio_config = texttospeech.AudioConfig(
+    audio_encoding=texttospeech.AudioEncoding.MP3
+)
+response = client.synthesize_speech(
+    input=synthesis_input,
+    voice=voice,
+    audio_config=audio_config
+)
+with open("broadcast.mp3", "wb") as out:
+    out.write(response.audio_content)
+
+Cost: $0.24 per broadcast ✅
+Setup: Requires GCP account + API enable
+
+
+================================================================================
+REAL-WORLD USE CASES & RECOMMENDATIONS
+================================================================================
+
+USE CASE 1: Personal Bedtime Broadcasts (You)
+─────────────────────────────────────────────
+Volume: 1-5 games per week
+Audience: Just you
+Priority: Cost-effective, calm voice
+
+RECOMMENDATION: OpenAI TTS ("onyx" voice)
+- Cost: ~$1/week for 5 games
+- Quality: Perfect for sleep
+- Already integrated
+
+
+USE CASE 2: Sharing with Friends/Family
+────────────────────────────────────────
+Volume: 5-20 games per month
+Audience: Small group
+Priority: Good quality, affordable
+
+RECOMMENDATION: OpenAI TTS
+- Cost: ~$4-5/month
+- Quality: Professional enough
+- Easy to generate on-demand
+
+
+USE CASE 3: Public Podcast/YouTube Channel
+───────────────────────────────────────────
+Volume: Daily or multiple per week
+Audience: Public
+Priority: Quality matters for retention
+
+RECOMMENDATION: Start OpenAI, consider ElevenLabs
+- Test with OpenAI first
+- If monetizing, upgrade to ElevenLabs
+- Budget $100-200/month for premium quality
+
+
+USE CASE 4: Commercial Sports App
+──────────────────────────────────
+Volume: High volume, automated
+Audience: Paying customers
+Priority: Best quality, brand reputation
+
+RECOMMENDATION: ElevenLabs or Custom Google Voice
+- Quality is critical for paid product
+- Consider voice cloning for branded identity
+- Budget accordingly
+
+
+================================================================================
+CONCLUSION & NEXT STEPS
+================================================================================
+
+FOR YOUR PROJECT (Sleep-Friendly Baseball Broadcasts):
+
+✅ RECOMMENDED PATH: OpenAI TTS
+
+REASONS:
+1. Already integrated in your code
+2. Perfect "onyx" voice for bedtime listening
+3. 100x cheaper than premium alternatives
+4. Good enough quality for personal/casual use
+5. No subscription commitment
+
+IMMEDIATE NEXT STEPS:
+1. Set your OpenAI API key
+2. Run: python3 test_tts_short.py
+3. Test with 2 innings (~$0.06)
+4. Listen and evaluate quality
+5. If satisfied, generate full broadcasts
+
+FUTURE CONSIDERATION:
+→ If you build a commercial product or podcast
+→ If you need maximum excitement/emotion
+→ If budget allows premium quality
+→ Then explore ElevenLabs for upgrade
+
+
+ESTIMATED COSTS FOR YOUR USE:
+- Testing (5 short broadcasts): ~$0.30
+- Regular use (1 game/day for a month): ~$7
+- Heavy use (100 games): ~$23
+- Extremely affordable! ✅
+
+
+================================================================================
+ADDITIONAL RESOURCES
+================================================================================
+
+OpenAI TTS:
+- Official Docs: https://platform.openai.com/docs/guides/text-to-speech
+- Pricing: https://openai.com/pricing
+- API Reference: https://platform.openai.com/docs/api-reference/audio
+
+ElevenLabs:
+- Website: https://elevenlabs.io
+- Documentation: https://docs.elevenlabs.io
+- Voice Library: https://elevenlabs.io/voice-library
+- Pricing: https://elevenlabs.io/pricing
+
+Google Cloud TTS:
+- Product Page: https://cloud.google.com/text-to-speech
+- Documentation: https://cloud.google.com/text-to-speech/docs
+- Pricing Calculator: https://cloud.google.com/text-to-speech/pricing
+- Voice Samples: https://cloud.google.com/text-to-speech/docs/voices
+
+TTS Comparisons:
+- Eden AI Comparison: https://www.edenai.co/post/best-text-to-speech-apis
+- DAISY Cost Analysis: https://daisy.org/news-events/articles/ai-text-to-speech-cost-comparison/
+- Vapi Blog: https://vapi.ai/blog/elevenlabs-vs-openai
+
+
+================================================================================
+QUESTIONS? TROUBLESHOOTING
+================================================================================
+
+Q: Which voice sounds best for sports?
+A: For bedtime: OpenAI "onyx". For excitement: ElevenLabs "Adam" or "Josh"
+
+Q: Can I try before buying?
+A: Yes! ElevenLabs has 10k char free tier. OpenAI costs $0.06 for test.
+
+Q: How long does generation take?
+A: ~30 seconds for 15k characters on all platforms
+
+Q: Can I adjust speed or excitement?
+A: OpenAI: No. ElevenLabs: Yes. Google: Yes (with SSML)
+
+Q: What if I want a specific announcer's voice?
+A: ElevenLabs voice cloning can mimic any voice (with permission)
+
+Q: Can I generate audio in real-time?
+A: Yes, all three support streaming for live generation
+
+Q: Which is easiest to set up?
+A: OpenAI (single API key, already in your code)
+
+
+================================================================================
+FINAL RECOMMENDATION SUMMARY
+================================================================================
+
+🎯 FOR TESTING: OpenAI TTS
+   → Run python3 test_tts_short.py NOW
+   → Cost: $0.06 for 2-inning test
+   → Quality: 8/10 - Good enough for most uses
+
+💎 FOR PREMIUM: ElevenLabs
+   → Try after testing OpenAI
+   → Cost: $21-35 per broadcast
+   → Quality: 10/10 - Best available
+
+⚖️ BEST VALUE: OpenAI TTS
+   → Perfect balance of quality and cost
+   → $0.23 per 17-minute broadcast
+   → Ideal for your sleep-friendly use case
+
+
+Ready to test? Run this:
+export OPENAI_API_KEY='your-key'
+python3 test_tts_short.py
+
+================================================================================
+Document End - Good luck with your baseball broadcasts! 🎙️⚾
+================================================================================
