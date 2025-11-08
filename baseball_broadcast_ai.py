@@ -27,9 +27,9 @@ def text_to_speech(text, output_file="broadcast_audio.mp3"):
         
         print("Generating speech audio...")
         response = client.audio.speech.create(
-            model="tts-1",
-            voice="onyx",  # Deep, calm voice
-            speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
+            model="tts-1-hd",  # HD model for better prosody and naturalness
+            voice="onyx",  # Deep, calm voice for baseball broadcasting
+            speed=0.95,  # Slightly slower for clear, natural pacing
             input=text
         )
         

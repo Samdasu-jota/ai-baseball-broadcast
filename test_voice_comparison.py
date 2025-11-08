@@ -21,9 +21,9 @@ def text_to_speech_with_voice(text, voice_name, output_file):
 
         print(f"  Generating with {voice_name} voice...")
         response = client.audio.speech.create(
-            model="tts-1",
+            model="tts-1-hd",  # HD model for better prosody and naturalness
             voice=voice_name,
-            speed=0.8,  # 20% slower for relaxed pacing
+            speed=0.95,  # Slightly slower for clear, natural pacing
             input=text
         )
         response.stream_to_file(output_file)

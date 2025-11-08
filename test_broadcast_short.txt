@@ -1,25 +1,26 @@
-# BROADCASTER STYLE TEST - Inning 3
-# Los Angeles Dodgers @ Toronto Blue Jays
+# IMPROVED BROADCASTER STYLE - HD Model Test
+# Los Angeles Dodgers @ Toronto Blue Jays - Inning 3
+# Updates: HD model (tts-1-hd), speed 0.95, em dashes, transitions
 
 Top of the 3.
-Here's the pitch to Hernández... fastball, 95 miles per hour, down the middle. Got him looking, strike. The fastball, 95, down the middle. Ball. The curveball, 76, down the middle. In play. Fly out. 
+95 on the gun... fastball, down the middle. Got him looking, strike. The fastball, 95, down the middle. Ball. Here's the pitch... curveball, 76, down the middle. In play. Fly out. 
 
-The fastball, 95, down the middle. Got him looking, strike. Now 0 and 2... The fastball, 96, down the middle. Foul ball. The slider, 87, low and outside. Low, ball. Here's the pitch... changeup, 86, outside. Swings and misses, strike. And... struck him out! Here's the pitch to Ohtani... changeup, 87 miles per hour, down the middle. In play. Line out. 
+95 on the gun... fastball, down the middle. Got him looking, strike. Now 0 and 2... Here's the pitch... fastball, 96, down the middle. Foul ball. Here's the pitch... slider, 87, low and outside. Low, ball. Here's the pitch... changeup, 86, outside. Swings and misses, strike. And... struck him out! The changeup, 87, down the middle. In play. Line out. 
 
 
 After that half inning, we're tied at 0.
 
 Bottom of the 3.
-96 on the gun... fastball, down the middle. Foul ball. Now 0 and 2... 99 on the gun... fastball, down the middle. Swings and misses, strike. Now 0 and 2... The fastball, 101, outside. Foul ball. The curveball, 83, low and outside. Low, ball. The sweeper, 86, down the middle. In play. Base hit. 
+96 on the gun... fastball, down the middle. Foul ball. Now 0 and 2... The fastball, 99, down the middle. Swings and misses, strike. Now 0 and 2... Here's the pitch... fastball, 101, outside. Foul ball. The curveball, 83—low and outside. Low, ball. 86 on the gun... sweeper, down the middle. In play. Base hit. 
 
-The fastball, 98, down the middle. In play. Sac Bunt. 
+98 on the gun... fastball, down the middle. In play. Sac Bunt. 
 
-Here's the pitch to Jr.... splitter, 88 miles per hour, low and outside. Low, ball. The slider, 89, down the middle. In play. And it's gone... home run! That brings in 3 runs. 
+88 on the gun... splitter, low and outside. Low, ball. 89 on the gun... slider, down the middle. In play. And it's gone... home run! That brings in 3 runs. 
 
-Here's the pitch to Barger... slider, 84 miles per hour, down the middle. Got him looking, strike. Now 0 and 2... 86 on the gun... slider, down the middle. Foul ball. Now 0 and 2... 84 on the gun... slider, low. In play. Base hit. 
+The slider, 84, down the middle. Got him looking, strike. Now 0 and 2... Here's the pitch... slider, 86, down the middle. Foul ball. Now 0 and 2... The slider, 84, low. In play. Base hit. 
 
-80 on the gun... curveball, down the middle. Got him looking, strike. Here's the pitch... fastball, 96, down the middle. In play. Line out. 
+The curveball, 80, down the middle. Got him looking, strike. 96 on the gun... fastball, down the middle. In play. Line out. 
 
-Here's the pitch to Varsho... slider, 86 miles per hour, low. Low, ball. The slider, 85, down the middle. Foul ball. Here's the pitch... sinker, 95, down the middle. Got him looking, strike. 88 on the gun... slider, low and inside. Swings and misses, strike. And... struck him out! 
+Here's the pitch to Varsho... slider, 86 miles per hour, low. Low, ball. The slider, 85—down the middle. Foul ball. 95 on the gun... sinker, down the middle. Got him looking, strike. The slider, 88, low and inside. Swings and misses, strike. And... struck him out! 
 
 After that half inning, Toronto Blue Jays leads 3 to 0.

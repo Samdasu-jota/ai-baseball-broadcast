@@ -24,9 +24,9 @@ def text_to_speech(text, output_file="test_broadcast_ultra_short.mp3"):
         print(f"Estimated cost: ${estimated_cost:.4f}")
 
         response = client.audio.speech.create(
-            model="tts-1",
+            model="tts-1-hd",  # HD model for better prosody and naturalness
             voice="onyx",
-            speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
+            speed=0.95,  # Slightly slower for clear, natural pacing
             input=text
         )
         response.stream_to_file(output_file)

@@ -1,4 +1,5 @@
-# ULTRA-SHORT TEST - Top of 3rd Inning Only
-# Los Angeles Dodgers @ Toronto Blue Jays
+# IMPROVED BROADCASTER STYLE - HD Model Test (Ultra-Short)
+# Los Angeles Dodgers @ Toronto Blue Jays - Top of 3rd Only
+# Updates: HD model (tts-1-hd), speed 0.95, em dashes, transitions
 
-Top of the 3rd inning.  Scherzer, delivers a 95 mile per hour four-seam fastball to Hernández. Strike. Delivers a 95 mile per hour four-seam fastball. Ball. Delivers a 76 mile per hour curveball. Put in play.  Delivers a 95 mile per hour four-seam fastball to Rojas. Strike. Delivers a 96 mile per hour four-seam fastball. Strike. Delivers a 87 mile per hour slider. Ball. Delivers a 86 mile per hour changeup. Strike. Delivers a 87 mile per hour changeup to Ohtani. Put in play.   After the top of the 3rd, we're tied at 0.
+Top of the 3rd inning.Scherzer fires a 95 mile per hour fastball—down the middle—to Hernández. Got him looking, strike. Here's the pitch... fastball, 95, down the middle. Ball. 76 on the gun... curveball, down the middle. In play. Fly out. 95 on the gun... fastball, down the middle. Got him looking, strike. Now 0 and 2... The fastball, 96—down the middle. Foul ball. The slider, 87—low and outside. Low, ball. The changeup, 86—outside. Swings and misses, strike. And... struck him out! The changeup, 87—down the middle. In play. Line out. After the top of the 3rd, we're tied at 0.

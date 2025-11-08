@@ -34,9 +34,9 @@ def text_to_speech(text, output_file="test_broadcast_short.mp3"):
             # Single request
             print("Generating audio (single chunk)...")
             response = client.audio.speech.create(
-                model="tts-1",
+                model="tts-1-hd",  # HD model for better prosody
                 voice="onyx",
-                speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
+                speed=0.95,  # Slightly slower for natural, clear pacing
                 input=text
             )
             response.stream_to_file(output_file)
@@ -70,9 +70,9 @@ def text_to_speech(text, output_file="test_broadcast_short.mp3"):
                 temp_file = f"temp_chunk_{i}.mp3"
 
                 response = client.audio.speech.create(
-                    model="tts-1",
+                    model="tts-1-hd",  # HD model for better prosody
                     voice="onyx",
-                    speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
+                    speed=0.95,  # Slightly slower for natural, clear pacing
                     input=chunk
                 )
                 response.stream_to_file(temp_file)

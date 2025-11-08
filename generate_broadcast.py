@@ -122,6 +122,10 @@ def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True)
     pitch_verbs = ["fires", "deals", "throws", "comes with"]
     verb = random.choice(pitch_verbs)
 
+    # Transitional phrases for natural flow (used occasionally)
+    transitions = ["Working quickly, ", "Takes his time, ", "Sets and ", ""]
+    transition = random.choice(transitions) if mention_pitcher and random.random() < 0.3 else ""
+
     # Build pitch speed and type description
     speed_int = int(round(speed)) if speed > 0 else None
 
@@ -156,25 +160,25 @@ def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True)
     # Choose sentence pattern randomly for variety
     pattern = random.randint(1, 4)
 
-    # Pattern 1: Direct with action verb
+    # Pattern 1: Direct with action verb (with transitional phrases)
     if pattern == 1:
         if mention_pitcher and mention_batter:
             if speed_int and location:
-                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}, {location}, to {batter}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}—{location}—to {batter}. {outcome.capitalize()}."
             elif speed_int:
-                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type} to {batter}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} a {speed_int} mile per hour {pitch_type} to {batter}. {outcome.capitalize()}."
             else:
-                pitch_text = f"{count_context}{pitcher} {verb} the {pitch_type} to {batter}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} the {pitch_type} to {batter}. {outcome.capitalize()}."
         elif mention_pitcher:
             if speed_int and location:
-                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}, {location}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}—{location}. {outcome.capitalize()}."
             elif speed_int:
-                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}. {outcome.capitalize()}."
             else:
-                pitch_text = f"{count_context}{pitcher} {verb} the {pitch_type}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}{transition}{pitcher} {verb} the {pitch_type}. {outcome.capitalize()}."
         else:
             if speed_int and location:
-                pitch_text = f"{count_context}The {pitch_type}, {speed_int}, {location}. {outcome.capitalize()}."
+                pitch_text = f"{count_context}The {pitch_type}, {speed_int}—{location}. {outcome.capitalize()}."
             elif speed_int:
                 pitch_text = f"{count_context}The {pitch_type}, {speed_int}. {outcome.capitalize()}."
             else:
