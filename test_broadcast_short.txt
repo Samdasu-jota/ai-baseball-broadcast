@@ -1,29 +1,25 @@
-# SHORT TEST BROADCAST - Innings [3] only
+# SHORT TEST - Inning 3 with Improved Pacing
 # Los Angeles Dodgers @ Toronto Blue Jays
-# Final Score: 5-4
-
-============================================================
-BROADCAST SCRIPT (SHORT TEST)
-============================================================
 
 Top of the 3.
-Scherzer delivers a 95.0 mile per hour four-seam fastball, down the middle to Hernández, strike. Delivers a 95.3 mile per hour four-seam fastball, down the middle, ball. Delivers a 76.5 mile per hour curveball, down the middle, put in play. Fly out. Delivers a 95.1 mile per hour four-seam fastball, down the middle to Rojas, strike. Delivers a 95.5 mile per hour four-seam fastball, down the middle, strike. 
+Scherzer, delivers a 95 mile per hour four-seam fastball, down the middle to Hernández. Strike. Delivers a 95 mile per hour four-seam fastball, down the middle. Ball. Delivers a 76 mile per hour curveball, down the middle. Put in play. Fly out. 
 
-Delivers a 86.9 mile per hour slider, low and outside, ball. Delivers a 86.3 mile per hour changeup, outside, strike. Struck him out! Delivers a 87.4 mile per hour changeup, down the middle to Ohtani, put in play. Line out. 
+Delivers a 95 mile per hour four-seam fastball, down the middle to Rojas. Strike. Delivers a 96 mile per hour four-seam fastball, down the middle. Strike. Delivers a 87 mile per hour slider, low and outside. Ball. Delivers a 86 mile per hour changeup, outside. Strike. And... struck him out! Delivers a 87 mile per hour changeup, down the middle to Ohtani. Put in play. Line out. 
+
+
 After that half inning, we're tied at 0.
 
 Bottom of the 3.
-Ohtani delivers a 96.3 mile per hour four-seam fastball, down the middle to Springer, strike. Delivers a 99.2 mile per hour four-seam fastball, down the middle, strike. 
+Ohtani, delivers a 96 mile per hour four-seam fastball, down the middle to Springer. Strike. Delivers a 99 mile per hour four-seam fastball, down the middle. Strike. Delivers a 101 mile per hour four-seam fastball, outside. Strike. Delivers a 83 mile per hour curveball, low and outside. Ball. Delivers a 86 mile per hour sweeper, down the middle. Put in play. Base hit. 
 
-Delivers a 100.9 mile per hour four-seam fastball, outside, strike. Delivers a 83.2 mile per hour curveball, low and outside, ball. Delivers a 85.7 mile per hour sweeper, down the middle, put in play. Base hit. Delivers a 98.5 mile per hour four-seam fastball, down the middle to Lukes, put in play. Sac Bunt. Delivers a 87.5 mile per hour splitter, low and outside to Jr., ball. 
+Delivers a 98 mile per hour four-seam fastball, down the middle to Lukes. Put in play. Sac Bunt. 
 
-Delivers a 88.7 mile per hour slider, down the middle to Bichette, put in play. It's a home run! That brings in 3 runs. Wrobleski delivers a 84.4 mile per hour slider, down the middle to Barger, strike. Delivers a 85.5 mile per hour slider, down the middle, strike. Delivers a 83.9 mile per hour slider, low, put in play. Base hit. Delivers a 79.9 mile per hour curveball, down the middle to Kirk, strike. 
+Delivers a 88 mile per hour splitter, low and outside to Jr.. Ball. Delivers a 89 mile per hour slider, down the middle to Bichette. Put in play. And it's gone... home run! That brings in 3 runs. 
 
-Delivers a 95.6 mile per hour four-seam fastball, down the middle, put in play. Line out. Delivers a 86.4 mile per hour slider, low to Varsho, ball. Delivers a 85.2 mile per hour slider, down the middle, strike. Delivers a 95.1 mile per hour sinker, down the middle, strike. Delivers a 87.9 mile per hour slider, low and inside, strike. Struck him out! 
+Wrobleski, delivers a 84 mile per hour slider, down the middle to Barger. Strike. Delivers a 86 mile per hour slider, down the middle. Strike. Delivers a 84 mile per hour slider, low. Put in play. Base hit. 
 
+Delivers a 80 mile per hour curveball, down the middle to Kirk. Strike. Delivers a 96 mile per hour four-seam fastball, down the middle. Put in play. Line out. 
 
+Delivers a 86 mile per hour slider, low to Varsho. Ball. Delivers a 85 mile per hour slider, down the middle. Strike. Delivers a 95 mile per hour sinker, down the middle. Strike. Delivers a 88 mile per hour slider, low and inside. Strike. And... struck him out! 
 
 After that half inning, Toronto Blue Jays leads 3 to 0.
-
-
-That's the end of our test broadcast. This was a sample from Los Angeles Dodgers versus Toronto Blue Jays.

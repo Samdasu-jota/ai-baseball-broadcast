@@ -26,6 +26,7 @@ def text_to_speech(text, output_file="test_broadcast_ultra_short.mp3"):
         response = client.audio.speech.create(
             model="tts-1",
             voice="onyx",
+            speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
             input=text
         )
         response.stream_to_file(output_file)
@@ -103,20 +104,23 @@ def main():
             outcome = result
 
         # Mention batter only when they change
+        # Add comma after pitcher name and separate outcome with period for natural pauses
         if batter != prev_batter:
             if i == 0:
-                desc = f"{pitcher} delivers a {speed:.1f} mile per hour {pitch_type} to {batter}, {outcome}."
+                desc = f"{pitcher}, delivers a {int(round(speed))} mile per hour {pitch_type} to {batter}. {outcome.capitalize()}."
             else:
-                desc = f"Delivers a {speed:.1f} mile per hour {pitch_type} to {batter}, {outcome}."
+                desc = f"Delivers a {int(round(speed))} mile per hour {pitch_type} to {batter}. {outcome.capitalize()}."
         else:
-            desc = f"Delivers a {speed:.1f} mile per hour {pitch_type}, {outcome}."
+            desc = f"Delivers a {int(round(speed))} mile per hour {pitch_type}. {outcome.capitalize()}."
 
         script_lines.append(desc)
-        prev_batter = batter
 
-        # Add spacing every few pitches
-        if (i + 1) % 5 == 0:
+        # Add paragraph break when at-bat ends (ball put in play)
+        if "put in play" in outcome:
             script_lines.append("")
+            prev_batter = None  # Reset for next batter
+        else:
+            prev_batter = batter
 
     # Get final score for this half-inning
     if top_3rd_pitches:

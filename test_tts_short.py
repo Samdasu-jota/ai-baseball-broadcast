@@ -36,6 +36,7 @@ def text_to_speech(text, output_file="test_broadcast_short.mp3"):
             response = client.audio.speech.create(
                 model="tts-1",
                 voice="onyx",
+                speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
                 input=text
             )
             response.stream_to_file(output_file)
@@ -71,6 +72,7 @@ def text_to_speech(text, output_file="test_broadcast_short.mp3"):
                 response = client.audio.speech.create(
                     model="tts-1",
                     voice="onyx",
+                    speed=0.8,  # 20% slower for relaxed, sleep-friendly pacing
                     input=chunk
                 )
                 response.stream_to_file(temp_file)

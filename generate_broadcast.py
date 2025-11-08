@@ -50,23 +50,24 @@ def format_count(balls, strikes):
     return f"The count is {balls} and {strikes}. "
 
 def format_at_bat_outcome(at_bat_event):
-    """Format the at-bat outcome for broadcast"""
+    """Format the at-bat outcome for broadcast with dramatic pauses"""
     if not at_bat_event:
         return ""
 
     # Map event types to broadcast descriptions
+    # Add ellipses for dramatic moments
     event_lower = at_bat_event.lower()
 
     if "strikeout" in event_lower or "strike out" in event_lower:
-        return "Struck him out!"
+        return "And... struck him out!"
     elif "walk" in event_lower:
-        return "Ball four, that's a walk."
+        return "Ball four... that's a walk."
     elif "home run" in event_lower or "homerun" in event_lower:
-        return "It's a home run!"
+        return "And it's gone... home run!"
     elif "double" in event_lower:
-        return "That's a double."
+        return "That's a double!"
     elif "triple" in event_lower:
-        return "He's got a triple!"
+        return "And... he's got a triple!"
     elif "single" in event_lower:
         return "Base hit."
     elif "groundout" in event_lower or "ground out" in event_lower:
@@ -105,9 +106,9 @@ def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True)
 
     # Create natural descriptions
     if speed > 0 and pitch_type != "pitch":
-        speed_text = f"{speed:.1f} mile per hour {pitch_type}"
+        speed_text = f"{int(round(speed))} mile per hour {pitch_type}"
     elif speed > 0:
-        speed_text = f"{speed:.1f} mile per hour pitch"
+        speed_text = f"{int(round(speed))} mile per hour pitch"
     else:
         speed_text = pitch_type
 
@@ -128,14 +129,15 @@ def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True)
         outcome = result
 
     # Build the description based on what to mention
+    # Add comma after pitcher name for natural breathing pause
     if mention_pitcher and mention_batter:
-        pitch_text = f"{pitcher} delivers a {pitch_desc} to {batter}, {outcome}."
+        pitch_text = f"{pitcher}, delivers a {pitch_desc} to {batter}. {outcome.capitalize()}."
     elif mention_pitcher and not mention_batter:
-        pitch_text = f"{pitcher} delivers a {pitch_desc}, {outcome}."
+        pitch_text = f"{pitcher}, delivers a {pitch_desc}. {outcome.capitalize()}."
     elif not mention_pitcher and mention_batter:
-        pitch_text = f"Delivers a {pitch_desc} to {batter}, {outcome}."
+        pitch_text = f"Delivers a {pitch_desc} to {batter}. {outcome.capitalize()}."
     else:
-        pitch_text = f"Delivers a {pitch_desc}, {outcome}."
+        pitch_text = f"Delivers a {pitch_desc}. {outcome.capitalize()}."
 
     # Add at-bat outcome if this is the last pitch
     at_bat_event = pitch.get('at_bat_event')
@@ -285,8 +287,10 @@ def generate_broadcast_script(pitch_data, max_pitches=50, key_innings=None, away
 
         # Check if at-bat ended (ball in play means batter's turn is likely over)
         result = pitch['result'].lower()
+        at_bat_ended = False
         if "in play" in result or "hit" in result:
             prev_batter = None  # Reset so next batter gets introduced
+            at_bat_ended = True
         else:
             prev_batter = current_batter
 
@@ -296,8 +300,8 @@ def generate_broadcast_script(pitch_data, max_pitches=50, key_innings=None, away
         prev_away_score = pitch['away_score']
         prev_home_score = pitch['home_score']
 
-        # Add paragraph break every few pitches for readability
-        if i % 5 == 4:
+        # Add paragraph break after at-bat ends for natural breathing room
+        if at_bat_ended:
             script_lines.append("\n\n")
 
         prev_inning = pitch['inning']
