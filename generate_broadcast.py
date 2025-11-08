@@ -3,12 +3,22 @@
 Broadcast script generation module
 Converts pitch data into natural language broadcast commentary
 """
+import random
 
 def format_pitch_type(pitch_type):
     """Clean up pitch type names"""
     if not pitch_type or pitch_type == "Unknown":
         return "pitch"
-    return pitch_type.lower()
+
+    # User-specified simplifications for clarity
+    pitch_lower = pitch_type.lower()
+    if "four-seam" in pitch_lower or "4-seam" in pitch_lower:
+        return "fastball"
+    elif "two-seam" in pitch_lower or "2-seam" in pitch_lower:
+        return "sinker"
+
+    # All other pitch types stay as-is
+    return pitch_lower
 
 def format_pitch_location(pX, pZ, zone):
     """Describe the pitch location in broadcast terms"""
@@ -89,7 +99,7 @@ def format_at_bat_outcome(at_bat_event):
         return f"{at_bat_event}."
 
 def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True):
-    """Convert pitch data to broadcast text
+    """Convert pitch data to broadcast text with varied, natural broadcaster style
 
     Args:
         pitch: Pitch data dictionary
@@ -104,40 +114,104 @@ def generate_pitch_description(pitch, mention_batter=True, mention_pitcher=True)
     result = pitch['result'].lower()
     location = format_pitch_location(pitch.get('pX'), pitch.get('pZ'), pitch.get('zone'))
 
-    # Create natural descriptions
-    if speed > 0 and pitch_type != "pitch":
-        speed_text = f"{int(round(speed))} mile per hour {pitch_type}"
-    elif speed > 0:
-        speed_text = f"{int(round(speed))} mile per hour pitch"
-    else:
-        speed_text = pitch_type
+    # Get count for context
+    balls = pitch.get('balls', 0)
+    strikes = pitch.get('strikes', 0)
 
-    # Add location if available
-    if location:
-        pitch_desc = f"{speed_text}, {location}"
-    else:
-        pitch_desc = speed_text
+    # Action verbs for variety (instead of always "delivers")
+    pitch_verbs = ["fires", "deals", "throws", "comes with"]
+    verb = random.choice(pitch_verbs)
 
-    # Different result descriptions
+    # Build pitch speed and type description
+    speed_int = int(round(speed)) if speed > 0 else None
+
+    # Different result descriptions - more vivid
     if "ball" in result:
-        outcome = "ball"
-    elif "strike" in result or "foul" in result:
-        outcome = "strike"
+        if "high" in location:
+            outcome = "high, ball"
+        elif "low" in location:
+            outcome = "low, ball"
+        else:
+            outcome = "ball"
+    elif "called" in result and "strike" in result:
+        outcome = "got him looking, strike"
+    elif "swinging" in result or ("strike" in result and "foul" not in result):
+        outcome = "swings and misses, strike"
+    elif "foul" in result:
+        outcome = "foul ball"
     elif "hit" in result or "in play" in result:
-        outcome = "put in play"
+        outcome = "in play"
     else:
         outcome = result
 
-    # Build the description based on what to mention
-    # Add comma after pitcher name for natural breathing pause
-    if mention_pitcher and mention_batter:
-        pitch_text = f"{pitcher}, delivers a {pitch_desc} to {batter}. {outcome.capitalize()}."
-    elif mention_pitcher and not mention_batter:
-        pitch_text = f"{pitcher}, delivers a {pitch_desc}. {outcome.capitalize()}."
-    elif not mention_pitcher and mention_batter:
-        pitch_text = f"Delivers a {pitch_desc} to {batter}. {outcome.capitalize()}."
+    # Add count context for dramatic moments
+    count_context = ""
+    if balls == 3 and strikes == 2:
+        count_context = "Full count, 3 and 2... "
+    elif balls == 0 and strikes == 2:
+        count_context = "Now 0 and 2... "
+    elif balls == 3 and strikes == 0:
+        count_context = "3-0 count... "
+
+    # Choose sentence pattern randomly for variety
+    pattern = random.randint(1, 4)
+
+    # Pattern 1: Direct with action verb
+    if pattern == 1:
+        if mention_pitcher and mention_batter:
+            if speed_int and location:
+                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}, {location}, to {batter}. {outcome.capitalize()}."
+            elif speed_int:
+                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type} to {batter}. {outcome.capitalize()}."
+            else:
+                pitch_text = f"{count_context}{pitcher} {verb} the {pitch_type} to {batter}. {outcome.capitalize()}."
+        elif mention_pitcher:
+            if speed_int and location:
+                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}, {location}. {outcome.capitalize()}."
+            elif speed_int:
+                pitch_text = f"{count_context}{pitcher} {verb} a {speed_int} mile per hour {pitch_type}. {outcome.capitalize()}."
+            else:
+                pitch_text = f"{count_context}{pitcher} {verb} the {pitch_type}. {outcome.capitalize()}."
+        else:
+            if speed_int and location:
+                pitch_text = f"{count_context}The {pitch_type}, {speed_int}, {location}. {outcome.capitalize()}."
+            elif speed_int:
+                pitch_text = f"{count_context}The {pitch_type}, {speed_int}. {outcome.capitalize()}."
+            else:
+                pitch_text = f"{count_context}The {pitch_type}. {outcome.capitalize()}."
+
+    # Pattern 2: "Here's the pitch..." announcer style
+    elif pattern == 2:
+        if mention_batter:
+            if speed_int and location:
+                pitch_text = f"{count_context}Here's the pitch to {batter}... {pitch_type}, {speed_int} miles per hour, {location}. {outcome.capitalize()}."
+            elif speed_int:
+                pitch_text = f"{count_context}Here's the pitch to {batter}... {pitch_type}, {speed_int}. {outcome.capitalize()}."
+            else:
+                pitch_text = f"{count_context}Here's the pitch to {batter}... {pitch_type}. {outcome.capitalize()}."
+        else:
+            if speed_int and location:
+                pitch_text = f"{count_context}Here's the pitch... {pitch_type}, {speed_int}, {location}. {outcome.capitalize()}."
+            elif speed_int:
+                pitch_text = f"{count_context}Here's the pitch... {pitch_type}, {speed_int}. {outcome.capitalize()}."
+            else:
+                pitch_text = f"{count_context}Here's the pitch... {pitch_type}. {outcome.capitalize()}."
+
+    # Pattern 3: Speed first "95 on the gun..."
+    elif pattern == 3 and speed_int:
+        if location:
+            pitch_text = f"{count_context}{speed_int} on the gun... {pitch_type}, {location}. {outcome.capitalize()}."
+        else:
+            pitch_text = f"{count_context}{speed_int} miles per hour, {pitch_type}. {outcome.capitalize()}."
+
+    # Pattern 4: Minimal / fallback
     else:
-        pitch_text = f"Delivers a {pitch_desc}. {outcome.capitalize()}."
+        if speed_int and location:
+            pitch_text = f"{count_context}The {pitch_type}, {speed_int}, {location}. {outcome.capitalize()}."
+        elif speed_int:
+            pitch_text = f"{count_context}The {pitch_type}, {speed_int}. {outcome.capitalize()}."
+        else:
+            pitch_text = f"{count_context}The {pitch_type}. {outcome.capitalize()}."
 
     # Add at-bat outcome if this is the last pitch
     at_bat_event = pitch.get('at_bat_event')

@@ -1,25 +1,25 @@
-# SHORT TEST - Inning 3 with Improved Pacing
+# BROADCASTER STYLE TEST - Inning 3
 # Los Angeles Dodgers @ Toronto Blue Jays
 
 Top of the 3.
-Scherzer, delivers a 95 mile per hour four-seam fastball, down the middle to Hernández. Strike. Delivers a 95 mile per hour four-seam fastball, down the middle. Ball. Delivers a 76 mile per hour curveball, down the middle. Put in play. Fly out. 
+Here's the pitch to Hernández... fastball, 95 miles per hour, down the middle. Got him looking, strike. The fastball, 95, down the middle. Ball. The curveball, 76, down the middle. In play. Fly out. 
 
-Delivers a 95 mile per hour four-seam fastball, down the middle to Rojas. Strike. Delivers a 96 mile per hour four-seam fastball, down the middle. Strike. Delivers a 87 mile per hour slider, low and outside. Ball. Delivers a 86 mile per hour changeup, outside. Strike. And... struck him out! Delivers a 87 mile per hour changeup, down the middle to Ohtani. Put in play. Line out. 
+The fastball, 95, down the middle. Got him looking, strike. Now 0 and 2... The fastball, 96, down the middle. Foul ball. The slider, 87, low and outside. Low, ball. Here's the pitch... changeup, 86, outside. Swings and misses, strike. And... struck him out! Here's the pitch to Ohtani... changeup, 87 miles per hour, down the middle. In play. Line out. 
 
 
 After that half inning, we're tied at 0.
 
 Bottom of the 3.
-Ohtani, delivers a 96 mile per hour four-seam fastball, down the middle to Springer. Strike. Delivers a 99 mile per hour four-seam fastball, down the middle. Strike. Delivers a 101 mile per hour four-seam fastball, outside. Strike. Delivers a 83 mile per hour curveball, low and outside. Ball. Delivers a 86 mile per hour sweeper, down the middle. Put in play. Base hit. 
+96 on the gun... fastball, down the middle. Foul ball. Now 0 and 2... 99 on the gun... fastball, down the middle. Swings and misses, strike. Now 0 and 2... The fastball, 101, outside. Foul ball. The curveball, 83, low and outside. Low, ball. The sweeper, 86, down the middle. In play. Base hit. 
 
-Delivers a 98 mile per hour four-seam fastball, down the middle to Lukes. Put in play. Sac Bunt. 
+The fastball, 98, down the middle. In play. Sac Bunt. 
 
-Delivers a 88 mile per hour splitter, low and outside to Jr.. Ball. Delivers a 89 mile per hour slider, down the middle to Bichette. Put in play. And it's gone... home run! That brings in 3 runs. 
+Here's the pitch to Jr.... splitter, 88 miles per hour, low and outside. Low, ball. The slider, 89, down the middle. In play. And it's gone... home run! That brings in 3 runs. 
 
-Wrobleski, delivers a 84 mile per hour slider, down the middle to Barger. Strike. Delivers a 86 mile per hour slider, down the middle. Strike. Delivers a 84 mile per hour slider, low. Put in play. Base hit. 
+Here's the pitch to Barger... slider, 84 miles per hour, down the middle. Got him looking, strike. Now 0 and 2... 86 on the gun... slider, down the middle. Foul ball. Now 0 and 2... 84 on the gun... slider, low. In play. Base hit. 
 
-Delivers a 80 mile per hour curveball, down the middle to Kirk. Strike. Delivers a 96 mile per hour four-seam fastball, down the middle. Put in play. Line out. 
+80 on the gun... curveball, down the middle. Got him looking, strike. Here's the pitch... fastball, 96, down the middle. In play. Line out. 
 
-Delivers a 86 mile per hour slider, low to Varsho. Ball. Delivers a 85 mile per hour slider, down the middle. Strike. Delivers a 95 mile per hour sinker, down the middle. Strike. Delivers a 88 mile per hour slider, low and inside. Strike. And... struck him out! 
+Here's the pitch to Varsho... slider, 86 miles per hour, low. Low, ball. The slider, 85, down the middle. Foul ball. Here's the pitch... sinker, 95, down the middle. Got him looking, strike. 88 on the gun... slider, low and inside. Swings and misses, strike. And... struck him out! 
 
 After that half inning, Toronto Blue Jays leads 3 to 0.
